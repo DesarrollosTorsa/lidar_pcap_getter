@@ -1,0 +1,7 @@
+{
+  "VOL_INIT": {"label": "Volumen Inicial", "description": "Formato: VOL_INIT=X (0-100)"},
+  "VOL_MIN": {"label": "Volumen Mínimo", "description": "Formato: VOL_MIN=X"},
+  "VOL_MAX": {"label": "Volumen Máximo", "description": "Formato: VOL_MAX=X"},
+  "BACKLIGHT_MIN": {"label": "Brillo Mínimo", "description": "Retroiluminación base (0-100)"},
+  "BACKLIGHT_MAX": {"label": "Brillo Máximo", "description": "Retroiluminación máxima (0-100)"}
+}

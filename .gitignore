@@ -1,0 +1,34 @@
+# --- Credenciales y configuración sensible ---
+config/.env
+
+# --- Entorno virtual Python ---
+venv/
+.venv/
+env/
+
+# --- Bytecode Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+
+# --- Datos descargados (binarios pesados) ---
+descargas/*
+!descargas/.gitkeep
+
+# --- Logs ---
+*.log
+registro.log
+data/session.log
+
+# --- Archivos de análisis generados ---
+frame_*.csv
+reporte_*.png
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.swp
+
+# --- OS ---
+.DS_Store
+Thumbs.db
