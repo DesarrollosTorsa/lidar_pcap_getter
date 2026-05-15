@@ -42,8 +42,22 @@ from utils.env_handler import get_config
 from utils.logger import info_logger, error_logger, warning_logger
 from conexion.ssh_manager import crear_cliente_ssh, conectar_ssh, conectar_con_salto, cerrar_ssh
 
-FLEET_PATH = Path(__file__).parent / "data" / "fleet_info.json"
-DESCARGAS_BASE = Path(__file__).parent / "descargas"
+def _bundle_dir() -> Path:
+    """Directorio con archivos de datos (funciona en script normal y en exe PyInstaller)."""
+    if getattr(sys, "frozen", False):
+        return Path(sys._MEIPASS)
+    return Path(__file__).parent
+
+
+def _exe_dir() -> Path:
+    """Directorio donde vive el ejecutable o el script."""
+    if getattr(sys, "frozen", False):
+        return Path(sys.executable).parent
+    return Path(__file__).parent
+
+
+FLEET_PATH = _bundle_dir() / "data" / "fleet_info.json"
+DESCARGAS_BASE = _exe_dir() / "descargas"
 REMOTE_BASE = "/tmp/LidarDataRaw"
 NC_PORT = 12001
 

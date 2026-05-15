@@ -34,32 +34,33 @@ El puerto del concentrador se calcula automáticamente según el ID del equipo:
 pip install paramiko python-dotenv
 ```
 
-O con el entorno virtual incluido:
-
-```bash
-python -m venv venv
-source venv/bin/activate
-pip install paramiko python-dotenv
-```
-
 ---
 
 ## Instalación
 
+### Linux / WSL
+
 ```bash
 git clone git@github.com:DesarrollosTorsa/lidar_pcap_getter.git
 cd lidar_pcap_getter
-
 python -m venv venv
 source venv/bin/activate
 pip install paramiko python-dotenv
+cp config/.env.example config/.env
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone git@github.com:DesarrollosTorsa/lidar_pcap_getter.git
+cd lidar_pcap_getter
+python -m venv venv
+venv\Scripts\activate
+pip install paramiko python-dotenv
+copy config\.env.example config\.env
 ```
 
 Copiar y rellenar el archivo de configuración:
-
-```bash
-cp config/.env.example config/.env
-```
 
 Editar `config/.env` con las credenciales reales:
 
@@ -74,8 +75,11 @@ EQUIP_PASS="contraseña_equipos"
 
 PANTALLA_IP="192.168.19.100"
 
-# Opcional: ruta a Descargas de Windows (solo en WSL)
+# Opcional: carpeta donde copiar los zips al terminar la descarga
+# En WSL:
 WIN_DOWNLOADS="/mnt/c/Users/TU_USUARIO/Downloads"
+# En Windows nativo:
+# WIN_DOWNLOADS="C:\Users\TU_USUARIO\Downloads"
 ```
 
 ---

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod +x /home/torsa/proyectos/lidar_pcap_getter/build.sh)"
+    ]
+  }
+}

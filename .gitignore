@@ -24,6 +24,10 @@ data/session.log
 frame_*.csv
 reporte_*.png
 
+# --- PyInstaller build ---
+dist/
+build/
+
 # --- IDEs ---
 .vscode/
 .idea/
