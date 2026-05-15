@@ -26,17 +26,19 @@ jobs:
       - name: Buildear .exe
         run: pyinstaller lidar_pcap_getter.spec
 
-      - name: Preparar paquete
+      - name: Preparar y empaquetar
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Path release_windows/config -Force
-          Copy-Item dist/lidar_pcap_getter.exe release_windows/
-          Copy-Item config/.env.example release_windows/config/.env.example
+          New-Item -ItemType Directory -Path pkg/config -Force
+          Copy-Item dist/lidar_pcap_getter.exe pkg/
+          Copy-Item config/.env.example pkg/config/
+          Get-ChildItem -Recurse pkg
+          Compress-Archive -Path pkg/* -DestinationPath lidar_pcap_getter_windows.zip
 
       - uses: actions/upload-artifact@v4
         with:
           name: lidar_pcap_getter_windows
-          path: release_windows/
+          path: lidar_pcap_getter_windows.zip
 
   build-linux:
     runs-on: ubuntu-latest
@@ -55,17 +57,18 @@ jobs:
       - name: Buildear binario
         run: pyinstaller lidar_pcap_getter.spec
 
-      - name: Preparar paquete
+      - name: Preparar y empaquetar
         run: |
-          mkdir -p release_linux/config
-          cp dist/lidar_pcap_getter release_linux/
-          cp config/.env.example release_linux/config/.env.example
-          chmod +x release_linux/lidar_pcap_getter
+          mkdir -p pkg/config
+          cp dist/lidar_pcap_getter pkg/
+          cp config/.env.example pkg/config/
+          chmod +x pkg/lidar_pcap_getter
+          cd pkg && zip -r ../lidar_pcap_getter_linux.zip . && cd ..
 
       - uses: actions/upload-artifact@v4
         with:
           name: lidar_pcap_getter_linux
-          path: release_linux/
+          path: lidar_pcap_getter_linux.zip
 
   release:
     needs: [build-windows, build-linux]
@@ -76,17 +79,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: lidar_pcap_getter_windows
-          path: windows/
 
       - uses: actions/download-artifact@v4
         with:
           name: lidar_pcap_getter_linux
-          path: linux/
-
-      - name: Empaquetar
-        run: |
-          cd windows && zip -r ../lidar_pcap_getter_windows.zip . && cd ..
-          cd linux   && zip -r ../lidar_pcap_getter_linux.zip   . && cd ..
 
       - name: Crear Release en GitHub
         uses: softprops/action-gh-release@v2
