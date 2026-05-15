@@ -27,17 +27,16 @@ jobs:
         run: pyinstaller lidar_pcap_getter.spec
 
       - name: Preparar paquete
+        shell: pwsh
         run: |
-          mkdir release_windows
-          mkdir release_windows\config
-          copy dist\lidar_pcap_getter.exe release_windows\
-          copy config\.env.example release_windows\config\.env.example
-        shell: cmd
+          New-Item -ItemType Directory -Path release_windows/config -Force
+          Copy-Item dist/lidar_pcap_getter.exe release_windows/
+          Copy-Item config/.env.example release_windows/config/.env.example
 
       - uses: actions/upload-artifact@v4
         with:
           name: lidar_pcap_getter_windows
-          path: release_windows\
+          path: release_windows/
 
   build-linux:
     runs-on: ubuntu-latest
