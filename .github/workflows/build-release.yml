@@ -29,15 +29,15 @@ jobs:
       - name: Preparar paquete
         run: |
           mkdir release_windows
-          copy dist\lidar_pcap_getter.exe release_windows\
           mkdir release_windows\config
-          copy config\.env.example release_windows\config\
+          copy dist\lidar_pcap_getter.exe release_windows\
+          copy config\.env.example release_windows\config\.env.example
         shell: cmd
 
       - uses: actions/upload-artifact@v4
         with:
           name: lidar_pcap_getter_windows
-          path: release_windows/
+          path: release_windows\
 
   build-linux:
     runs-on: ubuntu-latest
@@ -58,10 +58,9 @@ jobs:
 
       - name: Preparar paquete
         run: |
-          mkdir release_linux
+          mkdir -p release_linux/config
           cp dist/lidar_pcap_getter release_linux/
-          mkdir release_linux/config
-          cp config/.env.example release_linux/config/
+          cp config/.env.example release_linux/config/.env.example
           chmod +x release_linux/lidar_pcap_getter
 
       - uses: actions/upload-artifact@v4
